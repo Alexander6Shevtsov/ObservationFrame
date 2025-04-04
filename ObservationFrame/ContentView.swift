@@ -9,15 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
     @State var user = UserManager(name: "John", surname: "Johnson", score: 10)
+    @Environment(Counter.self) var counter
     
     var body: some View {
         VStack(spacing: 20) {
-            VStack {
-                Text("Your name: \(user.fullName)")
-                Text("Your score: \(user.score)")
-            }
-            .font(.title)
-            .padding([.top, .bottom], 50)
+            
+            UserInfoView(user: user)
             
             Text("Change user data")
                 .font(.headline)
@@ -28,7 +25,7 @@ struct ContentView: View {
             .textFieldStyle(.roundedBorder)
             
             Button("Increase score") {
-                user.score += 1
+                counter.count += 1
             }
             .buttonStyle(.borderedProminent)
             
@@ -40,4 +37,19 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(Counter())
+}
+
+struct UserInfoView: View {
+    @Bindable var user: UserManager
+    @Environment(Counter.self) var counter
+    
+    var body: some View {
+        VStack {
+            TextField("Name", text: $user.name)
+            Text("Your score: \(counter.count)")
+        }
+        .font(.title)
+        .padding(.vertical, 50)
+    }
 }

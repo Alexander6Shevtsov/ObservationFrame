@@ -23,3 +23,8 @@ final class UserManager {
         self.score = score
     }
 }
+
+@Observable
+final class Counter {
+    var count = 0
+}

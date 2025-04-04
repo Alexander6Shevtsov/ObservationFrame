@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct ObservationFrameApp: App {
+    @State var counter = Counter()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(counter)
         }
     }
 }
